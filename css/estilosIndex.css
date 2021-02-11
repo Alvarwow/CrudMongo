@@ -1,0 +1,67 @@
+*{
+ /*   border: solid black 1px;*/
+}
+html {
+    height: 100%;
+  }
+body{
+    width: 100%;
+    min-height: 100%;
+    margin: 0px;
+    padding: 0px;
+   
+}
+/*------------PARTE SUPERIOR-------------*/
+header{
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    height: 100px;
+    background: rgb(34,193,195);
+background: linear-gradient(62deg, rgba(34,193,195,1) 0%, rgba(35,187,198,1) 19%, rgba(45,77,253,1) 100%);
+   
+}
+
+.buscador{
+margin-left: 30px;
+width:1000px;
+height: 50px;
+margin-right: 200px;
+display: flex;
+}
+.buscador input{
+    width: 90%;
+    font-size: larger;
+}
+.iconos_login_dwJson{
+margin-right: 50px;
+}
+/*-----RESPONSIVE HEADER---------*/
+@media screen and (max-width: 800px) {
+    .buscador {
+     margin-right: 50px;
+    }
+}
+/*----------------SECTION------------------*/
+section{
+    width: 100%;
+    min-height: 100%;
+    margin: 0px;
+    padding: 0px;
+   
+    display: flex;
+    flex-flow: column;
+}
+.top{
+width: 100%;
+height: 300px;
+background-color: #ECEDEF;
+}
+.categorias{
+    width: 100%;
+  height: 700px;
+    margin: 0px;
+    padding: 0px;
+
+    background-color: #212529;
+}
