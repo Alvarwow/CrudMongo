@@ -1,14 +1,16 @@
 <?php
+require_once "modelo/clases/Ejercicio.php";
 
-
-class Ejercicio
+class Ejercicio extends ArrayObject
 {
-private $nombre;
-private $repeticiones;
-private $series;
-private $descanso;
-private $descripcion;
-private $imagen;
+
+    private $id;
+    private $nombre;
+    private $repeticiones;
+    private $series;
+    private $descanso;
+    private $descripcion;
+    private $imagen;
 
     /**
      * Ejercicio constructor.
@@ -19,7 +21,7 @@ private $imagen;
      * @param $descripcion
      * @param $imagen
      */
-    public function __construct($nombre="", $repeticiones="", $series="", $descanso="", $descripcion="", $imagen="")
+    public function __construct($nombre = "", $repeticiones = "", $series = "", $descanso = "", $descripcion = "", $imagen = "",$id="")
     {
         $this->nombre = $nombre;
         $this->repeticiones = $repeticiones;
@@ -123,6 +125,22 @@ private $imagen;
     public function setImagen($imagen)
     {
         $this->imagen = $imagen;
+    }
+
+    //Llena el objeto con datos del post.
+    public function llenarObj($datos)
+    {
+        $this->setNombre(addslashes($datos['nombre']));
+        $this->setRepeticiones(addslashes($datos['repeticiones']));
+        $this->setSeries(addslashes($datos['series']));
+        $this->setDescanso(addslashes($datos['descanso']));
+        $this->setDescripcion(addslashes($datos['descripcion']));
+
+    }
+
+    public function insertar()
+    {
+        DaoEjercicio::getInstance()->insertarEjercicio($this);
     }
 
 }
