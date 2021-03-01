@@ -4,6 +4,8 @@ class Usuario
     private  $id;
     private $nombre;
     private $email;
+    private $pass;
+
 
     /**
      * Usuario constructor.
@@ -83,7 +85,7 @@ class Usuario
     {
         $this->pass = $pass;
     }
-    private $pass;
+
 
 
 public function insertarUsuario(){
