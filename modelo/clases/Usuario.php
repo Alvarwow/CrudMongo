@@ -1,12 +1,6 @@
 <?php
-
-
-
-
-
 class Usuario
 {
-
     private  $id;
     private $nombre;
     private $email;
@@ -96,10 +90,10 @@ public function insertarUsuario(){
 DaoUsuario::getInstance()->insertarUsuario();
 }
 public function borrarUsuario(){
-
+DaoUsuario::getInstance()->eliminarUsuario(000);
 }
 public function editarUsuario(){
-
+DaoUsuario::getInstance()->actualizarUsuario();
 }
 
 
