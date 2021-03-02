@@ -1,5 +1,50 @@
 <?php
-require_once "modelo/clases/Ejercicio.php";
+
+class ListaEjercicio{
+
+    private $lista;
+
+    public function __construct(){
+
+        $this->lista = array();
+
+    }
+
+
+    public function obtenerLista(){
+        $rows = DaoContactos::listar();
+        foreach ($rows as $document) {
+            $contacto = json_decode(json_encode($document),true);
+            $id = implode($contacto["_id"]);
+            array_push($this->lista,new Contacto($id,$contacto["nombre"],$contacto["telefono"],$contacto["mail"],$contacto["comentarios"]) );
+        }
+    }
+
+
+    public function imprimirFigurasEnBack()
+    {
+
+
+        $html = " <div class='containerdemangas' id=''>";
+
+        for ($i = 0; $i < sizeof($this->lista); $i++) {
+
+            $html .= $this->lista[$i]->imprimeteEnTr();
+
+        }
+
+        $html .= "</div>";
+
+        return $html;
+
+    }
+
+
+}
+
+
+
+
 
 class Ejercicio extends ArrayObject
 {
@@ -141,6 +186,43 @@ class Ejercicio extends ArrayObject
     public function insertar()
     {
         DaoEjercicio::getInstance()->insertarEjercicio($this);
+    }
+    /**
+     * Genera un codigo de div con los datos de un manga
+     * @return string cadena de html del div
+     */
+    public function imprimeteEnTr()
+    {
+
+        $html =
+
+            "<div class='contenedormanga'>
+    <div class='nombre'>
+     <a href='javascript:borrarManga(" . $this->id . ")'><img id='eliminar' src='img/eliminar.png'onmouseover='cambiarEliminarAzul(this)'onmouseout='cambiarEliminarBlanco(this)'></a> 
+     <a href='insertarManga.php?id=" . $this->id . "''> <img id='editar' src='img/editar.png'onmouseover='cambiarEditarAzul(this)'onmouseout='cambiarEditarBlanco(this)'></a> 
+        <h3>" . $this->titulo . "</h3>
+      
+    </div>  
+    <div class='imagen'>";
+        if ($this->imagen != null) {
+            $html .= "  <img src='" . $this->carpeta . $this->imagen . "'>
+</div>";
+        } else {
+            $html .= " <img src='" . $this->carpeta . "totoro.png'>
+</div>";
+        }
+
+        $html .= "<div class='datosVarios'>
+ <div class='descripcion'>" . $this->descripcion . "</div>
+    <h4> " . $this->coleccion . "</h4>
+    <h4> " . $this->categoria . "</h4>
+    <h4> " . $this->idioma . "</h4>
+    <h4>  " . $this->precio . "€</h4>
+</div>
+</div>";
+
+
+        return $html;
     }
 
 }

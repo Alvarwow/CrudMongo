@@ -1,3 +1,8 @@
+<?php
+require "modelo/clases/Ejercicio.php";
+
+$Ejercicio=new ListaEjercicio();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +24,10 @@
 </div>
 </header>
 <section>
-    <div class="top"> 
-
+    <div class="top">
+        <?php
+    echo $Ejercicio->imprimirFigurasEnBack();
+        ?>
     </div>
     <div class="categorias">
 
