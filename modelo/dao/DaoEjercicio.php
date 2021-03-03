@@ -21,19 +21,19 @@ class DaoEjercicio
 
 
 
-        $bulk->insert(['nombre' => $ejercicio->getNombre(), 'repeticiones' => $ejercicio->getRepeticiones(), 'series' => $ejercicio->getSeries(), 'descanso' => $ejercicio->getDescanso(),'descripcion'=>$ejercicio->getDescripcion(),'imagen'=>$ejercicio->getImagen()]);
+        $bulk->insert(['nombre' => $ejercicio->getNombre(), 'repeticiones' => $ejercicio->getRepeticiones(), 'series' => $ejercicio->getSeries(), 'descanso' => $ejercicio->getDescanso(),'imagen'=>$ejercicio->getImagen()]);
         $connection->executeBulkWrite("Rutinas.Ejercicios", $bulk);
 
 
     }
 
-    public function eliminarEjercicio($nombre)
+    public function eliminarEjercicio($id)
     {
 
         $connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
         $bulk = new MongoDB\Driver\BulkWrite;
 
-        $filter = ['nombre' => new MongoDB\BSON\ObjectId($nombre)];
+        $filter = ['_id' => new MongoDB\BSON\ObjectId($id)];
         $bulk->delete($filter, ['limit' => 0]);
 
         $connection->executeBulkWrite('Rutinas.Ejercicios', $bulk);
@@ -51,7 +51,7 @@ class DaoEjercicio
     }
 
 
-    public function listar()
+    public  function listar()
     {
         $connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
         $filter = [];

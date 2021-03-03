@@ -12,32 +12,32 @@ class ListaEjercicio{
 
 
     public function obtenerLista(){
-        $rows = DaoContactos::listar();
+        $rows = DaoEjercicio::getInstance()->listar();
         foreach ($rows as $document) {
-            $contacto = json_decode(json_encode($document),true);
-            $id = implode($contacto["_id"]);
-            array_push($this->lista,new Contacto($id,$contacto["nombre"],$contacto["telefono"],$contacto["mail"],$contacto["comentarios"]) );
+            $ejercicio = json_decode(json_encode($document),true);
+            $id = implode($ejercicio["_id"]);
+            array_push($this->lista,new Ejercicio($ejercicio["nombre"],$ejercicio["repeticiones"],$ejercicio["series"],$ejercicio["descanso"],"",$id) );
         }
     }
 
 
-    public function imprimirFigurasEnBack()
-    {
+    public function imprimirEnTabla(){
 
-
-        $html = " <div class='containerdemangas' id=''>";
-
-        for ($i = 0; $i < sizeof($this->lista); $i++) {
-
-            $html .= $this->lista[$i]->imprimeteEnTr();
+$txt="";
+        for($i=0;$i<sizeof($this->lista);$i++){
+            $txt .= "<div class='ejercicio'>";
+            $txt .= "<div class='datos'>";
+            $txt .= $this->lista[$i]->imprimeFilaTb();
 
         }
 
-        $html .= "</div>";
-
-        return $html;
-
+        return $txt;
     }
+
+
+
+
+
 
 
 }
@@ -54,7 +54,6 @@ class Ejercicio extends ArrayObject
     private $repeticiones;
     private $series;
     private $descanso;
-    private $descripcion;
     private $imagen;
 
     /**
@@ -63,16 +62,18 @@ class Ejercicio extends ArrayObject
      * @param $repeticiones
      * @param $series
      * @param $descanso
-     * @param $descripcion
+
      * @param $imagen
      */
-    public function __construct($nombre = "", $repeticiones = "", $series = "", $descanso = "", $descripcion = "", $imagen = "",$id="")
+    public function __construct($nombre = "", $repeticiones = "", $series = "", $descanso = "",  $imagen = "",$id="")
     {
+        $this->id=$id;
         $this->nombre = $nombre;
         $this->repeticiones = $repeticiones;
         $this->series = $series;
         $this->descanso = $descanso;
-        $this->descripcion = $descripcion;
+
+
         $this->imagen = $imagen;
     }
 
@@ -143,22 +144,6 @@ class Ejercicio extends ArrayObject
     /**
      * @return mixed|string
      */
-    public function getDescripcion()
-    {
-        return $this->descripcion;
-    }
-
-    /**
-     * @param mixed|string $descripcion
-     */
-    public function setDescripcion($descripcion)
-    {
-        $this->descripcion = $descripcion;
-    }
-
-    /**
-     * @return mixed|string
-     */
     public function getImagen()
     {
         return $this->imagen;
@@ -179,7 +164,7 @@ class Ejercicio extends ArrayObject
         $this->setRepeticiones(addslashes($datos['repeticiones']));
         $this->setSeries(addslashes($datos['series']));
         $this->setDescanso(addslashes($datos['descanso']));
-        $this->setDescripcion(addslashes($datos['descripcion']));
+
 
     }
 
@@ -187,42 +172,29 @@ class Ejercicio extends ArrayObject
     {
         DaoEjercicio::getInstance()->insertarEjercicio($this);
     }
+    public function borrar($id)
+    {
+        DaoEjercicio::getInstance()->eliminarEjercicio($id);
+    }
+
     /**
      * Genera un codigo de div con los datos de un manga
      * @return string cadena de html del div
      */
-    public function imprimeteEnTr()
-    {
+    public function imprimeFilaTb(){
+        $txt = "";
+            $txt .= "<h2 class='nombre''>".$this->getNombre();".</h2>";
+            $txt .= "<h2 class='numeros''>Repeticiones: ".$this->getRepeticiones();".</h2>";
+            $txt .= "<h2 class='numeros''>Series: ".$this->getSeries();".</h2>";
+            $txt .= "<h2 class='numeros''>Descanso: ".$this->getDescanso();".</h2>";
+             $txt .= "</div>";
+        $txt .= "<div class='botones'>";
+        $txt .= "<a href=''>Editar</a>";
+        $txt .= "<a href='javascript:borrarEjercicio(`" . $this->id . "`)'>Eliminar</a>";
+        $txt .= "</div>";
+        $txt .= "</div>";
+        return $txt;
 
-        $html =
-
-            "<div class='contenedormanga'>
-    <div class='nombre'>
-     <a href='javascript:borrarManga(" . $this->id . ")'><img id='eliminar' src='img/eliminar.png'onmouseover='cambiarEliminarAzul(this)'onmouseout='cambiarEliminarBlanco(this)'></a> 
-     <a href='insertarManga.php?id=" . $this->id . "''> <img id='editar' src='img/editar.png'onmouseover='cambiarEditarAzul(this)'onmouseout='cambiarEditarBlanco(this)'></a> 
-        <h3>" . $this->titulo . "</h3>
-      
-    </div>  
-    <div class='imagen'>";
-        if ($this->imagen != null) {
-            $html .= "  <img src='" . $this->carpeta . $this->imagen . "'>
-</div>";
-        } else {
-            $html .= " <img src='" . $this->carpeta . "totoro.png'>
-</div>";
-        }
-
-        $html .= "<div class='datosVarios'>
- <div class='descripcion'>" . $this->descripcion . "</div>
-    <h4> " . $this->coleccion . "</h4>
-    <h4> " . $this->categoria . "</h4>
-    <h4> " . $this->idioma . "</h4>
-    <h4>  " . $this->precio . "€</h4>
-</div>
-</div>";
-
-
-        return $html;
     }
 
 }

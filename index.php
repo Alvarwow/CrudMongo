@@ -1,7 +1,5 @@
 <?php
-require "modelo/clases/Ejercicio.php";
 
-$Ejercicio=new ListaEjercicio();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,29 +11,18 @@ $Ejercicio=new ListaEjercicio();
 </head>
 <body>
 
-<header>
-<div class="buscador">
-<input type="text">
-<a href="">Enviar</a>
-</div>
-<div class="iconos_login_dwJson">
-    <a href="formuInsert.php">Json</a>
-    <a href="">Usuario</a>
-</div>
-</header>
+<?php
+include "includes/header.php"
+?>
 <section>
-    <div class="top">
-        <?php
-    echo $Ejercicio->imprimirFigurasEnBack();
-        ?>
+
+
     </div>
     <div class="categorias">
 
-    </div>
-</section>
-<footer>
 
-</footer>
+</section>
+
 
 </body>
 </html>

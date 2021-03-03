@@ -1,0 +1,49 @@
+* {
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+
+
+}
+*{
+    /*   border: solid black 1px;*/
+}
+html {
+    height: 100%;
+}
+body{
+    width: 100%;
+    min-height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    overflow-y:hidden;
+}
+.contenedor{
+   display: flex;
+    background-color: #212529;
+    height: 90vh;
+}
+.formularioInsercion{
+    display: flex;
+    align-self: center;
+    flex-flow: column;
+    margin: auto;
+    background-color: #161b21;
+    padding: 50px;
+    border-radius: 10px;
+
+
+}
+input {
+    height: 5vh;
+    color: white;
+    background-color: #8f98a9;
+    opacity: 70%;
+    margin-bottom: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #D0CFCE;
+}
+label{color: white}
