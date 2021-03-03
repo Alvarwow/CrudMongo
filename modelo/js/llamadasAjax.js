@@ -19,7 +19,7 @@ function ajax() {
 var borrar = new ajax();
 function borrarEjercicio(id) {
 
-    if(confirm("¿Seguro que deseas eliminar el manga de la BD?")) {
+    if(confirm("¿Seguro que deseas eliminar el ejercicio de la BD?")) {
         var myurl = 'llamadas/eliminarEjercicio.php';
         myRand = parseInt(Math.random() * 999999999999999);
         modurl = myurl + '?rand=' + myRand + '&id=' + id;

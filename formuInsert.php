@@ -7,10 +7,25 @@ $ejercicio= new Ejercicio();
 
 
 if(isset($_POST) && !empty($_POST)){
+
+if (!empty($_POST['id'])) {//Update
+
+       $ejercicio->Actualizar($ejercicio);
+
+
+}else{
     //LLeno el objeto con los datos del post
     $ejercicio->llenarObj($_POST);
     //Inserto el Ejercicio en la base de datos
     $ejercicio->insertar();
+}
+//Formulario que recive la id de la biblioteca
+    if (isset($_GET['id']) && !empty(($_GET['id']))) {
+echo("hat paja");
+        $id = $_GET['id'];
+        $ejercicio=$ejercicio->listarID($id);
+
+    }
 
 }
 
@@ -36,7 +51,7 @@ include "includes/header.php"
     <form class="formularioInsercion" id="formularioInsercion" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"
           enctype="multipart/form-data">
 
-        <label>Nombre</label><input type="text" name="nombre">
+        <label>Nombre</label> <input type="text" name="nombre" value="<?php $ejercicio->getNombre() ?>">
         <label>Repeticiones</label><input type="number" name="repeticiones">
         <label>Series</label><input type="number" name="series">
         <label>Descanso</label><input type="number" name="descanso">

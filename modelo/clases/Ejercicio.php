@@ -176,6 +176,22 @@ class Ejercicio extends ArrayObject
     {
         DaoEjercicio::getInstance()->eliminarEjercicio($id);
     }
+    public function actualizar($ejercicio){
+        DaoEjercicio::getInstance()->actualizarUsuario($ejercicio);
+    }
+    public function listarID($id){
+       $rows=DaoEjercicio::getInstance()->listarID($id);
+       echo($this->getNombre());
+        foreach ($rows as $document) {
+            $ejercicio = json_decode(json_encode($document),true);
+            $this->setNombre($ejercicio["nombre"]);
+            $this->setRepeticiones($ejercicio["repeticiones"]);
+            $this->setSeries($ejercicio["series"]);
+            $this->setDescanso($ejercicio["descanso"]);
+
+    }
+
+    }
 
     /**
      * Genera un codigo de div con los datos de un manga
@@ -187,10 +203,14 @@ class Ejercicio extends ArrayObject
             $txt .= "<h2 class='numeros''>Repeticiones: ".$this->getRepeticiones();".</h2>";
             $txt .= "<h2 class='numeros''>Series: ".$this->getSeries();".</h2>";
             $txt .= "<h2 class='numeros''>Descanso: ".$this->getDescanso();".</h2>";
-             $txt .= "</div>";
+            $txt .= "</div>";
+
+
         $txt .= "<div class='botones'>";
-        $txt .= "<a href=''>Editar</a>";
-        $txt .= "<a href='javascript:borrarEjercicio(`" . $this->id . "`)'>Eliminar</a>";
+        $txt .= "<a class='editar' href='formuInsert.php?id=".$this->id."'>Editar</a>";
+        $txt .= "<a class='eliminar' href='javascript:borrarEjercicio(`" . $this->id . "`)'>Eliminar</a>";
+
+
         $txt .= "</div>";
         $txt .= "</div>";
         return $txt;

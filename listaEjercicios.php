@@ -21,8 +21,13 @@ $listaEjercicios->obtenerLista();
 <?php
 include "includes/header.php"
 ?>
-
+<h1 class="fecha">Rutina de hoy
+    <?php
+    $hoy = getdate();
+    print_r($hoy['weekday']." / ".$hoy['mday']." / ".$hoy['month']);
+    ?></h1>
 <div class="contenedorEjercicios" id="lista">
+
     <?php echo $listaEjercicios->imprimirEnTabla() ?>
 
     </div>
