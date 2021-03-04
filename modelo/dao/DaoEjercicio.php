@@ -30,9 +30,7 @@ class DaoEjercicio
 
         $bulk = new MongoDB\Driver\BulkWrite;
 
-
-
-        $bulk->insert(['nombre' => $ejercicio->getNombre(), 'repeticiones' => $ejercicio->getRepeticiones(), 'series' => $ejercicio->getSeries(), 'descanso' => $ejercicio->getDescanso(),'imagen'=>$ejercicio->getImagen()]);
+        $bulk->insert(['nombre' => $ejercicio->getNombre(), 'repeticiones' => $ejercicio->getRepeticiones(), 'series' => $ejercicio->getSeries(), 'descanso' => $ejercicio->getDescanso(),'video'=>$ejercicio->getVideo()]);
         $this->connection->executeBulkWrite("Rutinas.Ejercicios", $bulk);
 
 
@@ -56,7 +54,7 @@ class DaoEjercicio
 
         $bulk = new MongoDB\Driver\BulkWrite;
         $filter = ['_id' => new MongoDB\BSON\ObjectId($ejercicio["id"])];
-        $collation = ['$set' => ['nombre' => $ejercicio["nombre"], 'repeticiones' => $ejercicio["repeticiones"], 'series' => $ejercicio["series"], 'descanso' => $ejercicio["descanso"]]];
+        $collation = ['$set' => ['nombre' => $ejercicio["nombre"], 'repeticiones' => $ejercicio["repeticiones"], 'series' => $ejercicio["series"], 'descanso' => $ejercicio["descanso"],'video'=>$ejercicio['video']]];
         $bulk->update($filter, $collation);
        $this->connection->executeBulkWrite('Rutinas.Ejercicios', $bulk);
     }
@@ -69,10 +67,10 @@ class DaoEjercicio
         $query = new MongoDB\Driver\Query($filter);
         return $this->connection->executeQuery("Rutinas.Ejercicios", $query);
     }
-    public  function listarID()
+    public  function listarID($id)
     {
-        $connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-        $filter = ['_id'];
+
+        $filter = ['_id' => new MongoDB\BSON\ObjectId($id)];
         $query = new MongoDB\Driver\Query($filter);
         return $this->connection->executeQuery("Rutinas.Ejercicios", $query);
 

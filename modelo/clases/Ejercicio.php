@@ -16,7 +16,7 @@ class ListaEjercicio{
         foreach ($rows as $document) {
             $ejercicio = json_decode(json_encode($document),true);
             $id = implode($ejercicio["_id"]);
-            array_push($this->lista,new Ejercicio($ejercicio["nombre"],$ejercicio["repeticiones"],$ejercicio["series"],$ejercicio["descanso"],"",$id) );
+            array_push($this->lista,new Ejercicio($ejercicio["nombre"],$ejercicio["repeticiones"],$ejercicio["series"],$ejercicio["descanso"],$ejercicio['video'],$id) );
         }
     }
 
@@ -49,12 +49,13 @@ $txt="";
 class Ejercicio extends ArrayObject
 {
 
+
     private $id;
     private $nombre;
     private $repeticiones;
     private $series;
     private $descanso;
-    private $imagen;
+    private $video;
 
     /**
      * Ejercicio constructor.
@@ -65,7 +66,7 @@ class Ejercicio extends ArrayObject
 
      * @param $imagen
      */
-    public function __construct($nombre = "", $repeticiones = "", $series = "", $descanso = "",  $imagen = "",$id="")
+    public function __construct($nombre = "", $repeticiones = "", $series = "", $descanso = "",  $video = "",$id="")
     {
         $this->id=$id;
         $this->nombre = $nombre;
@@ -74,7 +75,7 @@ class Ejercicio extends ArrayObject
         $this->descanso = $descanso;
 
 
-        $this->imagen = $imagen;
+        $this->video = $video;
     }
 
     /**
@@ -144,17 +145,32 @@ class Ejercicio extends ArrayObject
     /**
      * @return mixed|string
      */
-    public function getImagen()
+    public function getVideo()
     {
-        return $this->imagen;
+        return $this->video;
     }
 
     /**
-     * @param mixed|string $imagen
+     * @param mixed|string $video
      */
-    public function setImagen($imagen)
+    public function setVideo($video)
     {
-        $this->imagen = $imagen;
+        $this->video = $video;
+    }
+    /**
+     * @return mixed|string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed|string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     //Llena el objeto con datos del post.
@@ -164,7 +180,7 @@ class Ejercicio extends ArrayObject
         $this->setRepeticiones(addslashes($datos['repeticiones']));
         $this->setSeries(addslashes($datos['series']));
         $this->setDescanso(addslashes($datos['descanso']));
-
+        $this->setVideo(addslashes($datos['video']));
 
     }
 
@@ -179,22 +195,24 @@ class Ejercicio extends ArrayObject
     public function actualizar($ejercicio){
         DaoEjercicio::getInstance()->actualizarUsuario($ejercicio);
     }
+
     public function listarID($id){
        $rows=DaoEjercicio::getInstance()->listarID($id);
-       echo($this->getNombre());
+
         foreach ($rows as $document) {
             $ejercicio = json_decode(json_encode($document),true);
             $this->setNombre($ejercicio["nombre"]);
             $this->setRepeticiones($ejercicio["repeticiones"]);
             $this->setSeries($ejercicio["series"]);
             $this->setDescanso($ejercicio["descanso"]);
-
+            $this->setVideo($ejercicio['video']);
     }
 
     }
+
 
     /**
-     * Genera un codigo de div con los datos de un manga
+     * Genera un codigo de div con los datos de un ejercicio
      * @return string cadena de html del div
      */
     public function imprimeFilaTb(){
@@ -204,8 +222,7 @@ class Ejercicio extends ArrayObject
             $txt .= "<h2 class='numeros''>Series: ".$this->getSeries();".</h2>";
             $txt .= "<h2 class='numeros''>Descanso: ".$this->getDescanso();".</h2>";
             $txt .= "</div>";
-
-
+            $txt .= "<iframe class='video'  src='".$this->getVideo()."'></iframe>";
         $txt .= "<div class='botones'>";
         $txt .= "<a class='editar' href='formuInsert.php?id=".$this->id."'>Editar</a>";
         $txt .= "<a class='eliminar' href='javascript:borrarEjercicio(`" . $this->id . "`)'>Eliminar</a>";

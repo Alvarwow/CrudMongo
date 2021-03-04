@@ -1,7 +1,8 @@
 <header>
-    <div class="iconos_login_dwJson">
-        <a href="index.php">Index</a>
-        <a href="formuInsert.php">insertar</a>
-        <a href="listaEjercicios.php">Listar</a>
+    <div class="iconos">
+        <a href="index.php">  <img src="img/pesa.png" ></a>
+        <a class="botonNav" href="formuInsert.php">insertar</a>
+
     </div>
+    <img class="usuario" src="img/usuario.png">
 </header>

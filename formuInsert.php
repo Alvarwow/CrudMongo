@@ -5,11 +5,17 @@ include "modelo/dao/DaoEjercicio.php";
 
 $ejercicio= new Ejercicio();
 
+if (isset($_GET['id']) && !empty(($_GET['id']))) {
 
+    $id = $_GET['id'];
+    $ejercicio->listarID($id);
+
+
+}
 if(isset($_POST) && !empty($_POST)){
 
 if (!empty($_POST['id'])) {//Update
-
+    $ejercicio->llenarObj($_POST);
        $ejercicio->Actualizar($ejercicio);
 
 
@@ -20,12 +26,7 @@ if (!empty($_POST['id'])) {//Update
     $ejercicio->insertar();
 }
 //Formulario que recive la id de la biblioteca
-    if (isset($_GET['id']) && !empty(($_GET['id']))) {
-echo("hat paja");
-        $id = $_GET['id'];
-        $ejercicio=$ejercicio->listarID($id);
 
-    }
 
 }
 
@@ -40,6 +41,7 @@ echo("hat paja");
     <title>Insertar Ejercicio</title>
     <LINK REL=StyleSheet HREF="css/estilosIndex.css" TYPE="text/css" MEDIA=screen>
     <LINK REL=StyleSheet HREF="css/estilosFormu.css" TYPE="text/css" MEDIA=screen>
+    <script type="text/javascript" src="modelo/js/motor.js"></script>
 </head>
 
 <body>
@@ -51,14 +53,13 @@ include "includes/header.php"
     <form class="formularioInsercion" id="formularioInsercion" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"
           enctype="multipart/form-data">
 
-        <label>Nombre</label> <input type="text" name="nombre" value="<?php $ejercicio->getNombre() ?>">
-        <label>Repeticiones</label><input type="number" name="repeticiones">
-        <label>Series</label><input type="number" name="series">
-        <label>Descanso</label><input type="number" name="descanso">
-
-
-
-        <input type="submit" value="Guardar" >
+        <label>Nombre</label> <input type="text" name="nombre" value="<?php echo $ejercicio->getNombre()?>"  >
+        <label>Repeticiones</label><input type="number" name="repeticiones"value="<?php echo $ejercicio->getRepeticiones()?>">
+        <label>Series</label><input type="number" name="series"value="<?php echo $ejercicio->getSeries()?>">
+        <label>Descanso</label><input type="number" name="descanso"value="<?php echo $ejercicio->getDescanso()?>" >
+        <label>Video</label><input type="text" name="video"value="<?php echo $ejercicio->getVideo()?>">
+        <input type="hidden" name="id"value="<?php echo $ejercicio->getId()?>">
+        <input type="submit"  value="Guardar" >
     </form>
 </div>
 

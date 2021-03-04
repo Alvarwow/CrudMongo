@@ -1,68 +1,104 @@
-.contenedorEjercicios{
+.contenedorEjercicios {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 30px;
 }
-body{
+
+body {
     width: 100%;
-    min-height: 100%;
+
     margin: 0px;
     padding: 0px;
-    overflow-x: hidden;
-    overflow-y:hidden;
+
+
     background-color: #212529;
 }
-.ejercicio{
+
+.ejercicio {
 
     display: flex;
     align-self: center;
     justify-content: space-between;
     flex-flow: row;
     background-color: #161b21;
-    width: 800px;
+    width: 1200px;
     border-radius: 10px;
     margin-bottom: 20px;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
-.fecha{
-    color: white;
+
+.fecha {
+
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    background-color: #ECEDEF;
+
 }
-.datos{
+
+.datos {
     display: flex;
     flex-flow: row;
 }
-.nombre{
+
+.datos h2 {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.nombre {
     color: white;
     margin-left: 20px;
     margin-right: 20px;
 }
-.numeros{
-    color:white;
+
+.numeros {
+    color: white;
     margin-left: 20px;
     margin-right: 20px;
 }
-.botones{
-    display: flex;
-    flex-flow: column;
-margin-top: 10px;
+
+.video {
+    margin-top: 10px;
     margin-bottom: 10px;
-margin-left: 20px;
+}
+
+.botones {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
     margin-right: 20px;
 
 }
-.eliminar{
+
+.eliminar {
     background-color: red;
     text-decoration: none;
     padding: 10px;
     border-radius: 10px;
     color: white;
     margin-top: 10px;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
-.editar{
+
+.editar {
     background-color: cornflowerblue;
     text-decoration: none;
     padding: 10px;
     border-radius: 10px;
     color: white;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
