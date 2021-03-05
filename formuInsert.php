@@ -14,7 +14,8 @@ if (isset($_GET['id']) && !empty(($_GET['id']))) {
 }
 if(isset($_POST) && !empty($_POST)){
 
-if (!empty($_POST['id'])) {//Update
+    if (isset($_GET['id']) && !empty(($_GET['id']))) {
+
     $ejercicio->llenarObj($_POST);
        $ejercicio->Actualizar($ejercicio);
 
@@ -24,6 +25,7 @@ if (!empty($_POST['id'])) {//Update
     $ejercicio->llenarObj($_POST);
     //Inserto el Ejercicio en la base de datos
     $ejercicio->insertar();
+
 }
 //Formulario que recive la id de la biblioteca
 

@@ -19,16 +19,17 @@ body{
     overflow-y:hidden;
 }
 .contenedor{
-   display: flex;
+    display: flex;
     background-color: #212529;
     height: 95vh;
 
 }
-.formularioInsercion{
+.formularioContacto{
     display: flex;
     align-self: center;
-    flex-flow: column;
+    flex-direction: column;
     margin: auto;
+    width: 300px;
     background-color: #161b21;
     padding: 50px;
     border-radius: 10px;
@@ -39,6 +40,12 @@ body{
 
 
 }
+#editor{
+    max-width: 300px;
+    height: 500px;
+}
+
+
 input {
     height: 5vh;
     color: white;
@@ -50,3 +57,6 @@ input {
     border: 1px solid #D0CFCE;
 }
 label{color: white}
+.enviar{
+    align-self: flex-end;
+}
