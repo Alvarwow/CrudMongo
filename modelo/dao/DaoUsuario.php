@@ -3,9 +3,21 @@
 
 class DaoUsuario
 {
+    private $connection;
     private static $instance = null;
+
+
     /*Recoge la instancia de la clase para que se puedan acceder a los metodos de la misma
       desde otras clases sin necesidad de instanciar el objeto DaoUsuario;*/
+    /**
+     * DaoUsuario constructor.
+     * @param $connection
+     */
+    public function __construct()
+    {
+        $this->connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+    }
+
     public static function getInstance()
     {
         if (!self::$instance instanceof self) {
@@ -14,15 +26,16 @@ class DaoUsuario
         return self::$instance;
     }
 
+
     public function insertarUsuario($usuario)
     {
-        $connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+
 
         $bulk = new MongoDB\Driver\BulkWrite;
 
-        // $bulk->insert(['nombre' => $usuario["nombre"], 'telefono' => $contacto["telefono"], 'mail' => $contacto["mail"], 'comentarios' => $contacto["comentarios"]]);
+         $bulk->insert(['nombre' => $usuario->getNombre(),'pass' => $usuario->getPass(),'email'=>$usuario->getEmail(),'permiso' => $usuario->getPermiso()] );
 
-        //  $connection->executeBulkWrite("Agenda.Contactos", $bulk);
+          $this->connection->executeBulkWrite("Usuarios.ListaUsu", $bulk);
 
 
     }
@@ -30,13 +43,13 @@ class DaoUsuario
     public function eliminarUsuario($id)
     {
 
-        $connection = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+
         $bulk = new MongoDB\Driver\BulkWrite;
 
         $filter = ['_id' => new MongoDB\BSON\ObjectId($id)];
         $bulk->delete($filter, ['limit' => 0]);
 
-        $connection->executeBulkWrite('Agenda.Contactos', $bulk);
+        $this->connection->executeBulkWrite('Agenda.Contactos', $bulk);
     }
 
     public function actualizarUsuario($contacto)
@@ -59,6 +72,13 @@ class DaoUsuario
         $filter = [];
         $query = new MongoDB\Driver\Query($filter);
         return $connection->executeQuery("Agenda.Contactos", $query);
+    }
+    public function logIn($nombre,$pass){
+
+        $filter = ['nombre' =>$nombre,'pass'=>$pass];
+        $query = new MongoDB\Driver\Query($filter);
+        return $this->connection->executeQuery("Usuarios.ListaUsu", $query);
+
     }
 
 }

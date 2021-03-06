@@ -11,8 +11,8 @@ class ListaEjercicio{
     }
 
 
-    public function obtenerLista(){
-        $rows = DaoEjercicio::getInstance()->listar();
+    public function obtenerLista($nombre){
+        $rows = DaoEjercicio::getInstance()->listar($nombre);
         foreach ($rows as $document) {
             $ejercicio = json_decode(json_encode($document),true);
             $id = implode($ejercicio["_id"]);
@@ -192,8 +192,9 @@ class Ejercicio extends ArrayObject
     {
         DaoEjercicio::getInstance()->eliminarEjercicio($id);
     }
-    public function actualizar($ejercicio){
-        DaoEjercicio::getInstance()->actualizarUsuario($ejercicio);
+    public function actualizar($id){
+        $this->setId($id);
+        DaoEjercicio::getInstance()->actualizarUsuario($this);
     }
 
     public function listarID($id){
@@ -201,6 +202,7 @@ class Ejercicio extends ArrayObject
 
         foreach ($rows as $document) {
             $ejercicio = json_decode(json_encode($document),true);
+            $this->setId($id);
             $this->setNombre($ejercicio["nombre"]);
             $this->setRepeticiones($ejercicio["repeticiones"]);
             $this->setSeries($ejercicio["series"]);
@@ -224,8 +226,14 @@ class Ejercicio extends ArrayObject
             $txt .= "</div>";
             $txt .= "<iframe class='video'  src='".$this->getVideo()."'></iframe>";
         $txt .= "<div class='botones'>";
-        $txt .= "<a class='editar' href='formuInsert.php?id=".$this->id."'>Editar</a>";
-        $txt .= "<a class='eliminar' href='javascript:borrarEjercicio(`" . $this->id . "`)'>Eliminar</a>";
+if ($_SESSION['permiso'] == 3221){
+
+
+    $txt .= "<a class='editar' href='formuInsert.php?id=".$this->id."'>Editar</a>";
+    $txt .= "<a class='eliminar' href='javascript:borrarEjercicio(`" . $this->id . "`)'>Eliminar</a>";
+}
+
+
 
 
         $txt .= "</div>";

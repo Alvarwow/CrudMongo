@@ -10,7 +10,7 @@ $ejercicio->borrar($id);
 
 
 $lista = new ListaEjercicio();
-$lista->obtenerLista();
+$lista->obtenerLista("");
 
 
 echo $lista->imprimirEnTabla();

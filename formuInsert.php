@@ -2,8 +2,12 @@
 require "modelo/clases/Ejercicio.php";
 require_once "modelo/clases/Ejercicio.php";
 include "modelo/dao/DaoEjercicio.php";
+session_start();
+if (empty($_SESSION['nombre'])) {
+    header('Location: login.php');
+}
 
-$ejercicio= new Ejercicio();
+$ejercicio = new Ejercicio();
 
 if (isset($_GET['id']) && !empty(($_GET['id']))) {
 
@@ -12,21 +16,22 @@ if (isset($_GET['id']) && !empty(($_GET['id']))) {
 
 
 }
-if(isset($_POST) && !empty($_POST)){
+if (isset($_POST) && !empty($_POST)) {
 
-    if (isset($_GET['id']) && !empty(($_GET['id']))) {
+    if (!empty($_POST['id'])) {//Update
+        $id = $_POST['id'];
+        $ejercicio->llenarObj($_POST);
+        header("Location:index.php");
+        $ejercicio->Actualizar($id);
 
-    $ejercicio->llenarObj($_POST);
-       $ejercicio->Actualizar($ejercicio);
 
+    } else {
+        //LLeno el objeto con los datos del post
+        $ejercicio->llenarObj($_POST);
+        //Inserto el Ejercicio en la base de datos
+        $ejercicio->insertar();
 
-}else{
-    //LLeno el objeto con los datos del post
-    $ejercicio->llenarObj($_POST);
-    //Inserto el Ejercicio en la base de datos
-    $ejercicio->insertar();
-
-}
+    }
 //Formulario que recive la id de la biblioteca
 
 
@@ -52,16 +57,17 @@ include "includes/header.php"
 ?>
 
 <div class="contenedor">
-    <form class="formularioInsercion" id="formularioInsercion" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"
+    <form class="formularioInsercion" id="formularioInsercion" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+          method="post"
           enctype="multipart/form-data">
 
-        <label>Nombre</label> <input type="text" name="nombre" value="<?php echo $ejercicio->getNombre()?>"  >
-        <label>Repeticiones</label><input type="number" name="repeticiones"value="<?php echo $ejercicio->getRepeticiones()?>">
-        <label>Series</label><input type="number" name="series"value="<?php echo $ejercicio->getSeries()?>">
-        <label>Descanso</label><input type="number" name="descanso"value="<?php echo $ejercicio->getDescanso()?>" >
-        <label>Video</label><input type="text" name="video"value="<?php echo $ejercicio->getVideo()?>">
-        <input type="hidden" name="id"value="<?php echo $ejercicio->getId()?>">
-        <input type="submit"  value="Guardar" >
+        <label>Nombre</label> <input type="text" name="nombre" value="<?php echo $ejercicio->getNombre() ?>">
+        <label>Repeticiones</label><input type="number" name="repeticiones" value="<?php echo $ejercicio->getRepeticiones() ?>">
+        <label>Series</label><input type="number" name="series" value="<?php echo $ejercicio->getSeries() ?>">
+        <label>Descanso</label><input type="number" name="descanso" value="<?php echo $ejercicio->getDescanso() ?>">
+        <label>Video</label><input type="text" name="video" value="<?php echo $ejercicio->getVideo() ?>">
+        <input type="hidden" name="id" value="<?php echo $ejercicio->getId() ?>">
+        <input type="button" value="Guardar" onclick="validar()">
     </form>
 </div>
 

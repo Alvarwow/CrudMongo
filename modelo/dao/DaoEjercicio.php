@@ -53,17 +53,17 @@ class DaoEjercicio
 
 
         $bulk = new MongoDB\Driver\BulkWrite;
-        $filter = ['_id' => new MongoDB\BSON\ObjectId($ejercicio["id"])];
-        $collation = ['$set' => ['nombre' => $ejercicio["nombre"], 'repeticiones' => $ejercicio["repeticiones"], 'series' => $ejercicio["series"], 'descanso' => $ejercicio["descanso"],'video'=>$ejercicio['video']]];
+        $filter = ['_id' => new MongoDB\BSON\ObjectId($ejercicio->getId())];
+        $collation = ['$set' => ['nombre' => $ejercicio->getNombre(), 'repeticiones' => $ejercicio->getRepeticiones(), 'series' => $ejercicio->getSeries(), 'descanso' => $ejercicio->getDescanso(),'video'=>$ejercicio->getVideo()]];
         $bulk->update($filter, $collation);
        $this->connection->executeBulkWrite('Rutinas.Ejercicios', $bulk);
     }
 
 
-    public  function listar()
+    public  function listar($nombre)
     {
 
-        $filter = [];
+        $filter = ['nombre' =>new \MongoDB\BSON\Regex($nombre)];
         $query = new MongoDB\Driver\Query($filter);
         return $this->connection->executeQuery("Rutinas.Ejercicios", $query);
     }
