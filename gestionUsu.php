@@ -2,21 +2,14 @@
 require "modelo/clases/Usuario.php";
 
 include "modelo/dao/DaoUsuario.php";
-
+session_start();
 
 $usu=new Usuario();
-
-
-
-
 if (isset($_POST) && !empty($_POST)) {
-
 
     //LLeno el objeto con los datos del post
      $usu->llenarObj($_POST);
-
     $usu->insertarUsuario();
-   echo ("hecho");
 
 
 
@@ -47,11 +40,11 @@ include "includes/header.php"
     <form class="formularioContacto" id="formularioInsertUsu" action="<?php echo $_SERVER['PHP_SELF']; ?>"
           method="post"
           enctype="multipart/form-data">
-        <h1>Crear Usuario</h1>
+        <h1 class="titulo">Crear Usuario</h1>
         <label>Usuario</label> <input name="user">
         <label>Email</label> <input name="mail">
         <label>Contraseña</label> <input name="pass">
-        <input type="submit" value="Log in">
+        <input type="submit" value="Crear Usuario">
     </form>
 
 </div>

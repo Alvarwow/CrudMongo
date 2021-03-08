@@ -2,7 +2,7 @@
 require "../modelo/clases/Ejercicio.php";
 require "../modelo/dao/DaoEjercicio.php";
 $busqueda="";
-
+session_start();
 if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
 
     $busqueda=$_GET['busqueda'];

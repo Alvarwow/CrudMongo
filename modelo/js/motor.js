@@ -38,14 +38,8 @@ function validar() {
 
     //El video no esta incluido por que es opcional
 
-    function resetnegros(datos) {//Pone todos los inputs en su color original para ello necesita
 
-        for (var i = 0; i < datos.length; i++) {
 
-            datos[i].style.borderColor = 'initial';
-        }
-
-    }
 
     if (todoOK) {
         formulario.submit();
@@ -53,4 +47,41 @@ function validar() {
     }
 
 }
+function resetnegros(datos) {//Pone todos los inputs en su color original para ello necesita
 
+    for (var i = 0; i < datos.length; i++) {
+
+        datos[i].style.borderColor = 'initial';
+    }
+}
+
+function validarlogin() {
+    var formulario = document.getElementById('formularioLogin');
+    var datos = formulario.getElementsByTagName('input');
+    var todoOK = true;//Esta variable tiene que estar true para enviarse al formulario
+
+
+    resetnegros(datos);//Establece todos los campos a su color original
+
+    if (datos[0].value == "" || datos[0].value.length > 10) {//Nombre de usuario no puede ser mayor de 10 ni simbolos extraños
+        datos[0].style.borderColor = 'red';
+        todoOK = false;
+
+
+    }
+    if (datos[1].value == "" || datos[1].value.length < 8) {//Repeticiones
+        datos[1].style.borderColor = 'red';
+        todoOK = false;
+
+    }
+
+
+
+
+    if (todoOK) {
+        formulario.submit();
+
+    }
+
+
+}

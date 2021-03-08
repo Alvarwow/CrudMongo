@@ -35,6 +35,7 @@ if (isset($_POST) && !empty($_POST)) {
     <title>FitApp</title>
     <LINK REL=StyleSheet HREF="css/estilosIndex.css" TYPE="text/css" MEDIA=screen>
     <LINK REL=StyleSheet HREF="css/estilosLogin.css" TYPE="text/css" MEDIA=screen>
+    <script type="text/javascript" src="modelo/js/motor.js"></script>
 </head>
 
 
@@ -46,9 +47,9 @@ if (isset($_POST) && !empty($_POST)) {
     <form class="formularioContacto" id="formularioLogin" action="<?php echo $_SERVER['PHP_SELF']; ?>"
           method="post"
           enctype="multipart/form-data">
-        <label>Usuario</label> <input name="user">
-        <label>Contraseña</label> <input name="pass">
-        <input type="submit" value="Log in">
+        <label>Usuario</label> <input type="text" name="user">
+        <label>Contraseña</label> <input type="password" name="pass">
+        <input type="button" onclick="validarlogin()" value="Log in">
     </form>
 
 </div>
