@@ -26,21 +26,20 @@ include "includes/header.php"
 <div class="contenedor">
 
 
-        <form class="formularioContacto" action="[URL]" method="post">
-            <label>Correo</label> <input name="correo">
+    <form class="formularioContacto" action="[URL]" method="post">
+        <label>Correo</label> <input name="correo">
         <textarea name="content" id="editor">
-
         </textarea>
-            <p><input type="submit" class="enviar" value="Submit"></p>
-        </form>
-        <script>
-            ClassicEditor
-                .create(document.querySelector('#editor'))
-                .catch(error => {
-                    console.error(error);
-                });
-        </script>
-    </div>
+        <p><input type="submit" class="enviar" value="Enviar"></p>
+    </form>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+</div>
 
 </div>
 

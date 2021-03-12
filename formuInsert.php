@@ -62,7 +62,8 @@ include "includes/header.php"
           enctype="multipart/form-data">
 
         <label>Nombre</label> <input type="text" name="nombre" value="<?php echo $ejercicio->getNombre() ?>">
-        <label>Repeticiones</label><input type="number" name="repeticiones" value="<?php echo $ejercicio->getRepeticiones() ?>">
+        <label>Repeticiones</label><input type="number" name="repeticiones"
+                                          value="<?php echo $ejercicio->getRepeticiones() ?>">
         <label>Series</label><input type="number" name="series" value="<?php echo $ejercicio->getSeries() ?>">
         <label>Descanso</label><input type="number" name="descanso" value="<?php echo $ejercicio->getDescanso() ?>">
         <label>Video</label><input type="text" name="video" value="<?php echo $ejercicio->getVideo() ?>">

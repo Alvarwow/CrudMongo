@@ -2,14 +2,21 @@
 require "modelo/clases/Usuario.php";
 
 include "modelo/dao/DaoUsuario.php";
+require "modelo/clases/Ejercicio.php";
 session_start();
-
+if (empty($_SESSION['nombre']&&$_SESSION['permiso']=='3221')) {
+    header('Location: index.php');
+}
 $usu=new Usuario();
 if (isset($_POST) && !empty($_POST)) {
 
     //LLeno el objeto con los datos del post
      $usu->llenarObj($_POST);
     $usu->insertarUsuario();
+    if($_POST['Descarga']!=null){
+        $lista=new ListaEjercicio();
+        json_encode($lista->obtenerLista(""),JSON_PRETTY_PRINT);
+    }
 
 
 
@@ -41,9 +48,9 @@ include "includes/header.php"
           method="post"
           enctype="multipart/form-data">
         <h1 class="titulo">Crear Usuario</h1>
-        <label>Usuario</label> <input name="user">
-        <label>Email</label> <input name="mail">
-        <label>Contraseña</label> <input name="pass">
+        <label>Usuario</label> <input name="user" type="text">
+        <label>Email</label> <input name="mail" type="text">
+        <label>Contraseña</label> <input name="pass" type="password">
         <input type="submit" value="Crear Usuario">
     </form>
 

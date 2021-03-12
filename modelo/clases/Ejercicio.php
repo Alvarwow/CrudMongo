@@ -4,12 +4,35 @@ class ListaEjercicio{
 
     private $lista;
 
+    /**
+     * @return array
+     */
+    public function getLista()
+    {
+        return $this->lista;
+    }
+
+    /**
+     * @param array $lista
+     */
+    public function setLista($lista)
+    {
+        $this->lista = $lista;
+    }
+
     public function __construct(){
 
         $this->lista = array();
 
     }
+    public function obtenerJson(){
+        $rows = DaoEjercicio::getInstance()->listar("");
+        foreach ($rows as $document) {
+            $ejercicio = json_decode(json_encode($document),true);
 
+            array_push($this->lista,$ejercicio );
+        }
+    }
 
     public function obtenerLista($nombre){
         $rows = DaoEjercicio::getInstance()->listar($nombre);
